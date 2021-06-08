@@ -24,13 +24,12 @@ jobs:
       - name: Publish Docker image
         run: docker push $REPO
 
-  # redeploy:
-  #   name: Redeploy webhook call
-  #   runs-on: ubuntu-18.04
-  #   needs: [docker]
-  #   steps:
-  #     - name: Deploy docker container webhook
-  #       uses: joelwmale/webhook-action@master
-  #       env:
-  #         WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}
-  #         data: "{ 'myField': 'myFieldValue'}"
+  redeploy:
+    name: Redeploy webhook call
+    runs-on: ubuntu-18.04
+    needs: [docker]
+    steps:
+      - name: Deploy docker container webhook
+        uses: joelwmale/webhook-action@master
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOY_WEBHOOK_URL  }}?token=45c00c4c499bf5e11db34b75a3b8603a1cd6d298
