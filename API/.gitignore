@@ -3,3 +3,4 @@ obj
 .vscode
 .DS_Store
 wwwroot/*
+./.DS_Store
