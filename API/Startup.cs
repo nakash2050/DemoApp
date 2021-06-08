@@ -27,7 +27,7 @@ namespace Demo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options => options.AddPolicy("SPA_CLIENT", policy => policy.WithOrigins("http://localhost:4200")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -38,6 +38,7 @@ namespace Demo
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("SPA_CLIENT");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -47,19 +48,21 @@ namespace Demo
 
             // app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.Map("/", async ctx => {
-                    await ctx.Response.WriteAsync("<b>I am alive!</b>");
-                });
                 endpoints.MapGet("/health", async (ctx) => {
                     await ctx.Response.WriteAsync("I am very healthy");
                 });
+
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
