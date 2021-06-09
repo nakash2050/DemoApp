@@ -22,7 +22,6 @@ COPY --from=ngbuilder /ng-app/dist wwwroot
 WORKDIR "/src/."
 RUN dotnet build "Demo.csproj" -c Release -o /app/build
 
-
 FROM build as publish
 RUN dotnet publish "Demo.csproj" -c Release -o /app/publish
 

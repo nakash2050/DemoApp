@@ -4,3 +4,4 @@ obj
 .DS_Store
 wwwroot/*
 ./.DS_Store
+Employee.db
