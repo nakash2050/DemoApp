@@ -24,7 +24,7 @@ namespace API.Controllers
             return Ok(employeeId);
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployee(int employeeId)
         {
             var employee = await _employeeBAL.GetEmployee(employeeId);
