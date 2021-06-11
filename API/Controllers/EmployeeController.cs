@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.BAL;
 using API.DTO;
@@ -28,6 +29,13 @@ namespace API.Controllers
         {
             var employee = await _employeeBAL.GetEmployee(employeeId);
             return Ok(employee);
+        }
+
+        [HttpGet]
+        public async Task<IReadOnlyList<Employee>> GetAllEmployees()
+        {
+            var employee = await _employeeBAL.GetAllEmployees();
+            return employee;
         }
 
         [HttpPut]
